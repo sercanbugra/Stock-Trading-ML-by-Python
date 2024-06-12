@@ -163,11 +163,19 @@ def main():
     top_10_rsi = top_10_rsi.astype(float)
     bottom_10_rsi = bottom_10_rsi.astype(float)
 
-    ax2.plot(top_10_rsi.index, top_10_rsi.values, color='blue', marker='o', linestyle='dashed', label='Top 10 Stocks RSI')
-    ax2.plot(bottom_10_rsi.index, bottom_10_rsi.values, color='blue', marker='*', linestyle='dashed', label='Bottom 10 Stocks RSI')
+    # Ensure the order of the tickers for plotting is consistent
+    ax2.scatter(top_10_rsi.index, top_10_rsi.values, color='blue', marker='o', label='Top 10 Stocks RSI')
+    ax2.scatter(bottom_10_rsi.index, bottom_10_rsi.values, color='blue', marker='*', label='Bottom 10 Stocks RSI')
     ax2.tick_params(axis='y', labelcolor=color)
     ax2.axhline(70, color='grey', linestyle='--', linewidth=0.7)
     ax2.axhline(30, color='grey', linestyle='--', linewidth=0.7)
+
+    # Adding RSI value labels
+    for i, txt in enumerate(top_10_rsi.values):
+        ax2.annotate(f'{txt:.2f}', (top_10_rsi.index[i], top_10_rsi.values[i]), textcoords="offset points", xytext=(0,10), ha='center', fontsize=8, color='blue')
+
+    for i, txt in enumerate(bottom_10_rsi.values):
+        ax2.annotate(f'{txt:.2f}', (bottom_10_rsi.index[i], bottom_10_rsi.values[i]), textcoords="offset points", xytext=(0,10), ha='center', fontsize=8, color='blue')
 
     fig.tight_layout()
     plt.title('Average Sentiment Scores and RSI for Top and Bottom 10 S&P 100 Stocks')
