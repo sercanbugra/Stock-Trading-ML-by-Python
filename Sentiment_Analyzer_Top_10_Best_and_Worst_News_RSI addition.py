@@ -23,12 +23,12 @@ def parse_date(date_str):
     else:
         return pd.to_datetime(date_str).date()
 
-# Function to fetch S&P 100 stock tickers
-def get_sp100_tickers():
-    sp100_url = 'https://en.wikipedia.org/wiki/S%26P_100'
-    html = urlopen(sp100_url)
+# Function to fetch S&P 500 stock tickers
+def get_sp500_tickers():
+    sp500_url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+    html = urlopen(sp500_url)
     soup = BeautifulSoup(html, 'html.parser')
-    table = soup.find_all('table')[2]
+    table = soup.find('table', {'id': 'constituents'})
     tickers = []
     for row in table.find_all('tr')[1:]:
         ticker = row.find_all('td')[0].text.strip()
@@ -37,7 +37,7 @@ def get_sp100_tickers():
 
 # Parameters
 n = 2  # Number of recent news to consider
-tickers = get_sp100_tickers()
+tickers = get_sp500_tickers()
 
 # List of user agents to rotate
 user_agents = [
@@ -129,7 +129,7 @@ def main():
     news_sentiment = calculate_sentiment(parsed_news)
 
     # Output to Excel file
-    news_sentiment.to_excel("sentiment_scores.xlsx", index=False)
+    news_sentiment.to_excel("sentiment_scores_sp500.xlsx", index=False)
 
     # Plotting
     fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -178,7 +178,7 @@ def main():
         ax2.annotate(f'{txt:.2f}', (bottom_10_rsi.index[i], bottom_10_rsi.values[i]), textcoords="offset points", xytext=(0,10), ha='center', fontsize=8, color='blue')
 
     fig.tight_layout()
-    plt.title('Average Sentiment Scores and RSI for Top and Bottom 10 S&P 100 Stocks')
+    plt.title('Average Sentiment Scores and RSI for Top and Bottom 10 S&P 500 Stocks')
     plt.xticks(rotation=45, ha='right')
     fig.legend(loc='lower left', bbox_to_anchor=(1,0.85))
     plt.show()
