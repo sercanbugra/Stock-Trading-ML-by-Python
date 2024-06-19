@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 yf.pdr_override()
 
 # Get the stock quote
-df = pdr.get_data_yahoo('BABA', start='2022-01-01', end=datetime.now())
+df = pdr.get_data_yahoo('DELL', start='2022-01-01', end=datetime.now())
 
 # Create a new dataframe with only the 'Close' column
 data = df.filter(['Close'])
@@ -117,6 +117,6 @@ plt.xlabel('Date', fontsize=18)
 plt.ylabel('Close Price USD ($)', fontsize=18)
 plt.plot(train['Close'])
 plt.plot(valid[['Close', 'Predictions']])
-plt.plot(future_predictions['Close'], marker='o', linestyle='dashed', color='red')
+plt.plot(future_predictions['Close'], linestyle='dashed', color='red')
 plt.legend(['Train', 'Val', 'Predictions', 'Future'], loc='lower right')
 plt.show()
