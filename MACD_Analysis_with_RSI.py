@@ -15,11 +15,22 @@ def get_sp500_tickers():
         tickers.append(ticker)
     return tickers
 
+# Function to calculate RSI
+def calculate_rsi(data, period=14):
+    delta = data['Close'].diff()
+    gain = delta.where(delta > 0, 0)
+    loss = -delta.where(delta < 0, 0)
+    avg_gain = gain.rolling(window=period, min_periods=1).mean()
+    avg_loss = loss.rolling(window=period, min_periods=1).mean()
+    rs = avg_gain / avg_loss
+    rsi = 100 - (100 / (1 + rs))
+    return rsi
+
 # Fetch S&P 500 tickers
 sp500_tickers = get_sp500_tickers()
 
 # Initialize an empty list to store results
-cross_above_signals = []
+results = []
 
 # Iterate over each ticker
 for ticker in sp500_tickers:
@@ -43,18 +54,24 @@ for ticker in sp500_tickers:
         # Calculate the 9-period EMA of MACD (Signal Line)
         data['Signal_Line'] = data['MACD'].ewm(span=9, adjust=False).mean()
 
+        # Calculate RSI
+        data['RSI'] = calculate_rsi(data)
+
         # Check if MACD has crossed above the Signal Line for the last 3 consecutive days
         macd_above_signal = all(data['MACD'].iloc[-(i+1)] > data['Signal_Line'].iloc[-(i+1)] for i in range(3))
 
         if macd_above_signal:
-            cross_above_signals.append(ticker)
+            # Get the latest RSI value
+            latest_rsi = data['RSI'].iloc[-1]
+            # Append the ticker and RSI value to the results list
+            results.append({'Ticker': ticker, 'RSI': latest_rsi})
     except Exception as e:
         print(f"Error processing ticker {ticker}: {e}")
 
 # Create a DataFrame from the results
-results_df = pd.DataFrame(cross_above_signals, columns=['Ticker'])
+results_df = pd.DataFrame(results)
 
 # Save the DataFrame to an Excel file
-results_df.to_excel('cross_above_signals.xlsx', index=False)
+results_df.to_excel('cross_above_signals_with_rsi.xlsx', index=False)
 
-print("Results saved to cross_above_signals.xlsx")
+print("Results saved to cross_above_signals_with_rsi.xlsx")
