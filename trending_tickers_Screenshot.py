@@ -80,7 +80,7 @@ def generate_combined_stock_charts(source_url, start_date):
     today_date = datetime.now().strftime("%Y-%m-%d")
     fig.suptitle(f'{source_url}\n{start_date} ~ {today_date}', fontweight="bold", fontsize=16)
     fig.tight_layout()
-    fig.savefig('/Users/user/Downloads/stock_screener_combined.jpg', dpi=200, bbox_inches='tight')
+    fig.savefig('stock_screener_combined.jpg', dpi=200, bbox_inches='tight')
 
     return True
 
