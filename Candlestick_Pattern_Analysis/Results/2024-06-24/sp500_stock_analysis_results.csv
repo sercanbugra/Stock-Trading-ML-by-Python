@@ -1,0 +1,8 @@
+Stock name,Last candle date,Candle pattern detected,Explanation,Suggestion,Plot
+ETN,2024-06-24,CDLSHORTLINE,Short Line Candle: Indicates weak sentiment.,Watch closely,Results\2024-06-24\ETN_CDLSHORTLINE_2024-06-24.png
+DELL,2024-06-24,CDLLONGLINE,Long Line Candle: Indicates strong sentiment.,Watch closely,Results\2024-06-24\DELL_CDLLONGLINE_2024-06-24.png
+GLW,2024-06-24,CDLSHORTLINE,Short Line Candle: Indicates weak sentiment.,Watch closely,Results\2024-06-24\GLW_CDLSHORTLINE_2024-06-24.png
+CVX,2024-06-24,CDLSHORTLINE,Short Line Candle: Indicates weak sentiment.,Watch closely,Results\2024-06-24\CVX_CDLSHORTLINE_2024-06-24.png
+SNPS,2024-06-24,CDLINVERTEDHAMMER,Inverted Hammer: Bullish reversal.,Buy stock,Results\2024-06-24\SNPS_CDLINVERTEDHAMMER_2024-06-24.png
+GME,2024-06-24,CDL3OUTSIDE,Three Outside Up/Down: Strong trend reversal.,Watch closely,Results\2024-06-24\GME_CDL3OUTSIDE_2024-06-24.png
+GME,2024-06-24,CDLLONGLINE,Long Line Candle: Indicates strong sentiment.,Watch closely,Results\2024-06-24\GME_CDLLONGLINE_2024-06-24.png
