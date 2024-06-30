@@ -24,47 +24,7 @@ def get_sp500_tickers():
     return tickers
 
 # Fetch S&P 500 tickers
-sp500_tickers = get_sp500_tickers()
-
-# Initialize an empty list to store results
-cross_above_signals = []
-
-# Iterate over each ticker
-for ticker in sp500_tickers:
-    try:
-        # Fetch the stock data for the past 3 months with daily intervals
-        stock = yf.Ticker(ticker)
-        data = stock.history(period="3mo", interval="1d")
-        
-        if data.empty or len(data) < 3:
-            continue
-
-        # Calculate the 12-period EMA
-        data['EMA12'] = data['Close'].ewm(span=12, adjust=False).mean()
-
-        # Calculate the 26-period EMA
-        data['EMA26'] = data['Close'].ewm(span=26, adjust=False).mean()
-
-        # Calculate MACD (the difference between 12-period EMA and 26-period EMA)
-        data['MACD'] = data['EMA12'] - data['EMA26']
-
-        # Calculate the 9-period EMA of MACD (Signal Line)
-        data['Signal_Line'] = data['MACD'].ewm(span=9, adjust=False).mean()
-
-        # Check if MACD has crossed above the Signal Line for the last 3 consecutive days
-        macd_above_signal = all(data['MACD'].iloc[-(i+1)] > data['Signal_Line'].iloc[-(i+1)] for i in range(4))
-
-        if macd_above_signal:
-            cross_above_signals.append(ticker)
-    except Exception as e:
-        print(f"Error processing ticker {ticker}: {e}")
-
-# Create a DataFrame from the results
-results_df = pd.DataFrame(cross_above_signals, columns=['Ticker'])
-
-# Fetch S&P 500 tickers
-stable_sp500_tickers = results_df['Ticker'].tolist()
-
+stable_sp500_tickers = get_sp500_tickers()
 
 
 
