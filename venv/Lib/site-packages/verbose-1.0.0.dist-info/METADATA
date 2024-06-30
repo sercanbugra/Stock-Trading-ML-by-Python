@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: verbose
+Version: 1.0.0
+Summary: Scalable python logger
+Home-page: UNKNOWN
+Author: Adam Aquesbi
+Author-email: adam.aquesbi@outlook.com
+License: MPL 2.0
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha 
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: System :: Logging
+Description-Content-Type: text/markdown
+
+# verbose
+A scalable logger
+
+
