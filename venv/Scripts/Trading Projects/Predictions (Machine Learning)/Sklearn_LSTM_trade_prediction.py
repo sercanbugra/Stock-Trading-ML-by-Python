@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 yf.pdr_override()
 
 # Get the stock quote
-df = pdr.get_data_yahoo('DELL', start='2022-01-01', end=datetime.now())
+df = pdr.get_data_yahoo('SOUN', start='2022-01-01', end=datetime.now())
 
 # Create a new dataframe with only the 'Close' column
 data = df.filter(['Close'])
